@@ -1,0 +1,42 @@
+- name: integration of terraform and ansible
+  hosts: all
+
+  tasks:
+  - name: installing httpd
+    package:
+         name: httpd
+         state: present
+  - name: installing php
+    package:
+         name: php
+         state: present
+  - name: starting httpd service
+    service:
+         name: httpd
+         state: started
+  - name: installing git
+    package:
+         name: git
+         state: present
+  - name: formatting storage
+    filesystem:
+            fstype: ext4
+            dev : /dev/xvdh
+  - name: making folder
+    file:
+         path: /var/www/html/web
+         state: directory
+
+  - name: mounting storage
+    mount:
+        fstype: ext4
+        src: /dev/xvdh
+        path: /var/www/html/web
+        state: mounted
+
+  - name: cloning git repo
+    ansible.builtin.git:
+            repo: "https://.github.com/ishajain140/index_files.git/ /var/www/html/web"
+            dest: /var/www/html/web
+
+
