@@ -31,12 +31,12 @@
     mount:
         fstype: ext4
         src: /dev/xvdh
-        path: /var/www/html/web
+        path: /var/www/html
         state: mounted
 
   - name: cloning git repo
     ansible.builtin.git:
-            repo: "https://.github.com/ishajain140/index_files.git/ /var/www/html/web"
+            repo: "https://github.com/ishajain140/index_files.git/"
             dest: /var/www/html/web
 
 
